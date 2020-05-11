@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Covid-19 pandemic Indonesia Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <center><h1>COVID-19 pandemic in Indonesia</h1></center>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+<script>
+    var traces = []
+    var records = {{ data|safe }}
+
+    records.forEach(tracesFunction);
+
+    function tracesFunction(keyName, index, array) {
+      var trace = {
+        x: keyName['provinces'],
+        y: keyName['values'],
+        name: keyName['name'],
+        type: 'bar'
+      }
+      traces.push(trace)
+    }
+
+    var data = traces;
+
+    var layout = {barmode: 'group'};
+
+    Plotly.newPlot('myDiv', data, layout);
+</script>
+</body>
+</html>
